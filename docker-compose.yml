@@ -23,45 +23,42 @@ services:
       - 'traefik.http.routers.pgadmin.tls.certResolver=myResolver'
 
   model:
-    image: dpage/pgadmin4
-    env_file:
-      - .env
-    volumes:
-      - pgadmin:/var/lib/pgadmin
+    image: xalvaine/guess-model:${MODEL_VERSION}
+    working_dir: /home/app
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.model.rule=Host(`model.wordguess.ru`)'
+      - 'traefik.http.routers.model.rule=Host(`backend.wordguess.ru`)'
 
-#  backend_migrations:
-#    depends_on:
-#      - pg
-#    image: xalvaine/coffilation-backend:${BACKEND_VERSION}
-#    env_file:
-#      - .env
-#    command: yarn orm:migration:run
-#    working_dir: /home/app
-#    profiles:
-#      - backend_migrations
+  #  backend_migrations:
+  #    depends_on:
+  #      - pg
+  #    image: xalvaine/coffilation-backend:${BACKEND_VERSION}
+  #    env_file:
+  #      - .env
+  #    command: yarn orm:migration:run
+  #    working_dir: /home/app
+  #    profiles:
+  #      - backend_migrations
 
-#  backend:
-#    restart: always
-#    depends_on:
-#      - pg
-#    image: xalvaine/coffilation-backend:${BACKEND_VERSION}
-#    env_file:
-#      - .env
-#    environment:
-#      VERSION: ${BACKEND_VERSION}
-#      PLACE_LOOKUP_ENDPOINT: http://search:8000/lookup
-#    working_dir: /home/app
-#    expose:
-#      - 8000
-#    command: yarn start:prod
-#    labels:
-#      - 'traefik.enable=true'
-#      - 'traefik.http.routers.backend.rule=Host(`backend.wordguess.ru`,)'
-#      - 'traefik.http.routers.backend.entryPoints=webSecure'
-#      - 'traefik.http.routers.backend.tls.certResolver=myResolver'
+  #  backend:
+  #    restart: always
+  #    depends_on:
+  #      - pg
+  #    image: xalvaine/coffilation-backend:${BACKEND_VERSION}
+  #    env_file:
+  #      - .env
+  #    environment:
+  #      VERSION: ${BACKEND_VERSION}
+  #      PLACE_LOOKUP_ENDPOINT: http://search:8000/lookup
+  #    working_dir: /home/app
+  #    expose:
+  #      - 8000
+  #    command: yarn start:prod
+  #    labels:
+  #      - 'traefik.enable=true'
+  #      - 'traefik.http.routers.backend.rule=Host(`backend.wordguess.ru`,)'
+  #      - 'traefik.http.routers.backend.entryPoints=webSecure'
+  #      - 'traefik.http.routers.backend.tls.certResolver=myResolver'
 
   traefik:
     image: traefik:v2.8
