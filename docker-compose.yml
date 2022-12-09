@@ -18,7 +18,7 @@ services:
       - pgadmin:/var/lib/pgadmin
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.pgadmin.rule=Host(`pgadmin.test.api.coffilation.ru`)'
+      - 'traefik.http.routers.pgadmin.rule=Host(`pgadmin.wordguess.ru`)'
       - 'traefik.http.routers.pgadmin.entryPoints=webSecure'
       - 'traefik.http.routers.pgadmin.tls.certResolver=myResolver'
 
@@ -30,7 +30,7 @@ services:
       - pgadmin:/var/lib/pgadmin
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.model.rule=Host(`backend.wordguess.ru`,)'
+      - 'traefik.http.routers.model.rule=Host(`model.wordguess.ru`)'
 
 #  backend_migrations:
 #    depends_on:
@@ -70,10 +70,10 @@ services:
       - '--api.insecure=true'
       - '--providers.docker=true'
       - '--providers.docker.exposedByDefault=false'
-#      - '--entryPoints.webSecure.address=:443'
-#      - '--certificatesResolvers.myResolver.acme.tlsChallenge=true'
-#      - '--certificatesResolvers.myResolver.acme.email=feedback@coffilation.ru'
-#      - '--certificatesResolvers.myResolver.acme.storage=/letsencrypt/acme.json'
+      - '--entryPoints.webSecure.address=:443'
+      - '--certificatesResolvers.myResolver.acme.tlsChallenge=true'
+      - '--certificatesResolvers.myResolver.acme.email=feedback@coffilation.ru'
+      - '--certificatesResolvers.myResolver.acme.storage=/letsencrypt/acme.json'
     ports:
       - '8080:8080'
       - '443:443'
