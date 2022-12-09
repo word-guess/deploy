@@ -1,0 +1,23 @@
+name: Update config
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: appleboy/ssh-action@v0.1.4
+        env:
+          VERSION: ${{ github.ref_name }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            cd deploy
+            git fetch origin main
+            git reset --hard origin/main
