@@ -53,7 +53,7 @@ services:
     command: yarn start:prod
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.backend.rule=Host(`backend.wordguess.ru`,)'
+      - 'traefik.http.routers.backend.rule=Host(`backend.wordguess.ru`)'
       - 'traefik.http.routers.backend.entryPoints=webSecure'
       - 'traefik.http.routers.backend.tls.certResolver=myResolver'
 
