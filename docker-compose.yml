@@ -47,6 +47,7 @@ services:
     environment:
       VERSION: ${BACKEND_VERSION}
       WORD_GUESS_ENDPOINT: http://model:8000/similarity
+      NEST_ADDRESS: 0.0.0.0
     working_dir: /home/app
     expose:
       - 8000
