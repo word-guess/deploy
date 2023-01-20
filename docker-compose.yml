@@ -25,6 +25,11 @@ services:
   model:
     image: xalvaine/guess-model:${MODEL_VERSION}
     working_dir: /home/app
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.model.rule=Host(`model.wordguess.ru`)'
+      - 'traefik.http.routers.model.entryPoints=webSecure'
+      - 'traefik.http.routers.model.tls.certResolver=myResolver'
 
   backend_migrations:
     depends_on:
